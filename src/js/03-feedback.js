@@ -6,16 +6,19 @@ const {
   elements: { email, message },
 } = formRef;
 
-updateFields();
+updateInputValues();
 
 formRef.addEventListener('input', throttle(handleFormInput, 500));
 formRef.addEventListener('submit', handleSubmitBtn);
 
-function updateFields() {
-  const savedData = JSON.parse(localStorage.getItem('feedback-form-state'));
-
-  email.value = savedData ? savedData.email : '';
-  message.value = savedData ? savedData.message : '';
+function updateInputValues() {
+  try {
+    const savedData = JSON.parse(localStorage.getItem('feedback-form-state'));
+    email.value = savedData ? savedData.email : '';
+    message.value = savedData ? savedData.message : '';
+  } catch (error) {
+    console.error('Attention! ', error.message);
+  }
 }
 
 function handleFormInput() {

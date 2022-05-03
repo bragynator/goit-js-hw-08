@@ -4,9 +4,7 @@ import debounce from 'lodash.debounce';
 
 const player = new Player('vimeo-player');
 
-player
-  .setCurrentTime(localStorage.getItem('videoplayer-current-time'))
-  .catch(console.log('Play the video, please!!!'));
+player.setCurrentTime(localStorage.getItem('videoplayer-current-time') || '0');
 player.on('timeupdate', throttle(saveCurrentTime, 2000));
 player.on('ended', debounce(deleteSavedTime, 2000));
 
